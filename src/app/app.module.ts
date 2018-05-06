@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { HttpClientModule } from '@angular/common/http';
@@ -36,7 +37,9 @@ import { AppRoutingModule } from './app-routing.module';
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
-    )
+    ),
+
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Musician } from '../musician';
+import { trigger, state, style, animate, transition, keyframes, group } from '@angular/animations';
 
+import { Musician } from '../musician';
 import { MUSICIANS } from '../mock-musicians';
 
 import { MusicianService } from '../musician.service';
@@ -8,12 +9,31 @@ import { MusicianService } from '../musician.service';
 @Component({
     selector: 'app-musicians',
     templateUrl: './musicians.component.html',
-    styleUrls: ['./musicians.component.css']
+    styleUrls: ['./musicians.component.css'],
+    animations: [
+        trigger('flyInOut', [
+          state('in', style({transform: 'translateX(0)'})),
+          transition('void => *', [
+            animate(500, keyframes([
+              style({opacity: 0, transform: 'translateX(-100%)', offset: 0}),
+              style({opacity: 1, transform: 'translateX(15px)',  offset: 0.3}),
+              style({opacity: 1, transform: 'translateX(0)',     offset: 1.0})
+            ]))
+          ]),
+          transition('* => void', [
+            animate(500, keyframes([
+              style({opacity: 1, transform: 'translateX(0)',     offset: 0}),
+              style({opacity: 1, transform: 'translateX(-15px)', offset: 0.7}),
+              style({opacity: 0, transform: 'translateX(100%)',  offset: 1.0})
+            ]))
+          ])
+        ])
+      ]
 })
 export class MusiciansComponent implements OnInit {
 
     musicians: Musician[];
-    
+
     constructor(private musicianService: MusicianService) { }
 
     ngOnInit() {
@@ -42,6 +62,6 @@ export class MusiciansComponent implements OnInit {
     }
 
     private getRndInteger(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) ) + min;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 }
