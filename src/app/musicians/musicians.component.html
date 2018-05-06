@@ -1,0 +1,20 @@
+<h2>My Musicians</h2>
+
+<div>
+    <label>Musician name:
+        <input #musicianName />
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="add(musicianName.value); musicianName.value=''">
+        add
+    </button>
+</div>
+
+<ul class="musicians">
+    <li *ngFor="let musician of musicians">
+        <a routerLink="/detail/{{musician.id}}">
+            <span class="badge">{{musician.id}}</span> {{musician.name}}
+        </a>
+        <button class="delete" title="delete musician" (click)="delete(musician)">x</button>
+    </li>
+</ul>

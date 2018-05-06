@@ -1,0 +1,10 @@
+<h3>Top Musicians</h3>
+<div class="grid grid-pad">
+    <a *ngFor="let musician of musicians" class="col-1-4" routerLink="/detail/{{musician.id}}">
+        <div class="module musician">
+            <h4>{{musician.name}}</h4>
+        </div>
+    </a>
+</div>
+
+<app-musician-search></app-musician-search>
