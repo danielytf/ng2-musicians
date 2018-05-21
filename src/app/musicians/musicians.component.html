@@ -10,12 +10,8 @@
     </button>
 </div>
 
-<ul class="musicians">
-    <li *ngFor="let musician of musicians"
-        (@flyInOut.start)="animationStarted($event)"
-        (@flyInOut.done)="animationDone($event)"
-        [@flyInOut]="'in'"
-    >
+<ul class="musicians" [@staggerIn]="musicians?.length">
+    <li *ngFor="let musician of musicians">
         <a routerLink="/detail/{{musician.id}}">
             <span class="badge">{{musician.id}}</span> {{musician.name}}
         </a>

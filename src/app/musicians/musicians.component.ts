@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, state, style, animate, transition, keyframes, group } from '@angular/animations';
+import {
+    trigger,
+    style,
+    animate,
+    transition,
+    query,
+    stagger
+} from '@angular/animations';
 
 import { Musician } from '../musician';
 import { MUSICIANS } from '../mock-musicians';
@@ -11,24 +18,13 @@ import { MusicianService } from '../musician.service';
     templateUrl: './musicians.component.html',
     styleUrls: ['./musicians.component.css'],
     animations: [
-        trigger('flyInOut', [
-          state('in', style({transform: 'translateX(0)'})),
-          transition('void => *', [
-            animate(500, keyframes([
-              style({opacity: 0, transform: 'translateX(-100%)', offset: 0}),
-              style({opacity: 1, transform: 'translateX(15px)',  offset: 0.3}),
-              style({opacity: 1, transform: 'translateX(0)',     offset: 1.0})
-            ]))
-          ]),
-          transition('* => void', [
-            animate(500, keyframes([
-              style({opacity: 1, transform: 'translateX(0)',     offset: 0}),
-              style({opacity: 1, transform: 'translateX(-15px)', offset: 0.7}),
-              style({opacity: 0, transform: 'translateX(100%)',  offset: 1.0})
-            ]))
-          ])
+        trigger('staggerIn', [
+            transition('* => *', [
+                query(':enter', style({ opacity: 0, transform: `translate3d(0,10px,0)` }), { optional: true }),
+                query(':enter', stagger('100ms', [animate('300ms', style({ opacity: 1, transform: `translate3d(0,0,0)` }))]), { optional: true })
+            ])
         ])
-      ]
+    ]
 })
 export class MusiciansComponent implements OnInit {
 
